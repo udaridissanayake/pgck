@@ -1,0 +1,53 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <title>cleaning chart</title>
+        <style>
+            .centertext {
+                text-align: center;
+                color: blueviolet;
+    
+            }
+        </style>
+</head>
+<body>
+    <form action="action_page.php" method="POST">
+        <div class="container">
+            <!-- <h1 class="centertext">CLEANING CHART FORM</h1> -->
+            <div class="jumbotron">
+                    <h1 class="display-4">Cleaning Chart</h1>
+                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <hr class="my-4">
+                    <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> -->
+                    <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+                  </div>
+            <hr>
+            <div class="form-group">
+                <label for="Day">Day</label>
+                <input type="text" class="form-control" id="Day" name="Day" aria-describedby="Daydiscribe"
+                    placeholder="Enter Day" required>
+                <small id="Daydiscribe" class="form-text text-muted">Day</small>
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" aria-describedby="namediscribe"
+                    placeholder="Enter Name" required>
+                <small id="namediscribe" class="form-text text-muted"> Name</small>
+            </div>
+            <div class="form-group">
+                <label for="grade">Grade</label>
+                <input type="text" class="form-control" id="grade" name="grade" aria-describedby="gradediscribe"
+                    placeholder="Enter Grade" required>
+                <small id="gradediscribe" class="form-text text-muted">Grade</small>
+            </div>
+            <div class="form-group">
+                <label for="Year">Year</label>
+                <input type="text" class="form-control" id="Year" name="Year" aria-describedby="Yeardiscribe"
+                    placeholder="Enter Year" required>
+                <small id="Yeardiscribe" class="form-text text-muted">Year</small>
+            </div>
