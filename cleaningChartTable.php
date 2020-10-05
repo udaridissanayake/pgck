@@ -12,7 +12,7 @@ try {
     // $stmt->execute();
     // echo $stmt->rowCount() . " records UPDATED successfully";
 
-        $sql ="select * from student";   
+        $sql ="SELECT * FROM `student` WHERE classId = 1";   
     
     // use exec() because no results are returned
     //    $conn->exec($sql);
@@ -20,6 +20,14 @@ try {
         $dataSet->execute();
         $result = $dataSet->fetchAll();
 
+
+        $sql2 ="SELECT * FROM `classes` ";   
+    
+    // use exec() because no results are returned
+    //    $conn->exec($sql);
+        $dataSet2 = $conn->prepare($sql2);
+        $dataSet2->execute();
+        $classes = $dataSet2->fetchAll();
         
 }
 
@@ -68,9 +76,7 @@ $conn = null;
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php
-    include('leftPage.php')
-    ?>
+        <?php include('leftPage.php') ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -96,44 +102,49 @@ $conn = null;
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 
-<label >Year</label>
-<select name="" id="">
-    <option value="id">2019</option>
-    <option value="id">2020</option>
-    <option value="id">2021</option>
-    <option value="id">2022</option>
-</select>
-<label >Grade</label>
-<select name="" id="">
-    <option value="id">12 sci A</option>
-    <option value="id">12 sci B</option>
-    <option value="id">12 sci C</option>
-    <option value="id">12 sci D</option>
-    <option value="id">12 sci E</option>
-</select>
-<br>
-    <tr>
-        <th>Student Name</th>
-        <th>Cleaning Day</th>
-    </tr>
-    <?php
-    foreach($result as $res){
-    ?>  
-    <tr>
-        <td>
-        <?php echo $res['Name'];?>
-            <input type="hidden" name="StudentID" value="<?php echo $res['StudentID'] ?>">
-        </td>
-        <td><select name="" >
-            <option value="id">Monday</option>
-            <option value="id">Tuesday</option>
-            <option value="id">Wednesday</option>
-            <option value="id">Thursday</option>
-            <option value="id">Friday</option>
-        </select></td>
-    </tr>   
-   <?php }
-    ?>
-</table>
-
+                            <label >Year</label>
+                            <select name="" id="">
+                                <option value="id">2019</option>
+                                <option value="id">2020</option>
+                                <option value="id">2021</option>
+                                <option value="id">2022</option>
+                            </select>
+                            <label >Grade</label>
+                            <select name="" id="classId">
+                                <?php foreach($classes as $class){ ?>
+                                <option value="<?php echo $class['ID '] ?>"><?php echo $class['Class_Name'] ?></option>
+                                <?php } ?>
+                                <!-- <option value="id">12 sci B</option>
+                                <option value="id">12 sci C</option>
+                                <option value="id">12 sci D</option>
+                                <option value="id">12 sci E</option> -->
+                            </select>
+                            <br>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Cleaning Day</th>
+                                </tr>
+                                <?php
+                                foreach($result as $res){
+                                ?>  
+                                <tr>
+                                    <td>
+                                    <?php echo $res['Name'];?>
+                                        <input type="hidden" name="StudentID" value="<?php echo $res['StudentID'] ?>">
+                                    </td>
+                                    <td><select name="" >
+                                        <option value="id">Monday</option>
+                                        <option value="id">Tuesday</option>
+                                        <option value="id">Wednesday</option>
+                                        <option value="id">Thursday</option>
+                                        <option value="id">Friday</option>
+                                    </select></td>
+                                </tr>   
+                            <?php }
+                                ?>
+                            </table>
     <button type="submit" class="btn btn-secondary btn-lg">Save</button>
+    <?php include('footer.php') ?>
+<script>    
+
+</script>

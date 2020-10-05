@@ -12,7 +12,7 @@ try {
     // $stmt->execute();
     // echo $stmt->rowCount() . " records UPDATED successfully";
 
-        $sql ="select * from student";   
+        $sql ="SELECT std.indexNo,std.Name,std.classId,atd.Attendant,atd.Date FROM `attendance` as atd ,`student` as std WHERE atd.IndexNo = std.indexNo and atd.Date = $";   
     
     // use exec() because no results are returned
     //    $conn->exec($sql);
@@ -40,6 +40,7 @@ $conn = null;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="referrer" content="no-referrer" />
 
     <title>Pushpadana Girls' College Kandy </title>
 
@@ -67,8 +68,8 @@ $conn = null;
 
         <!-- Sidebar -->
         <?php
-    include('leftPage.php')
-    ?>
+             include('leftPage.php')
+        ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -88,15 +89,26 @@ $conn = null;
       <!-- Page Heading -->                  
                     <h1 class="h3 mb-4 text-gray-800">Attendance</h1>
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Options</h6>
+                        <div class="card-header py-3">                            
                             <div class="form-group">
-                        <label for="Date">Date</label>
-                        <input type="date" id="Date" name="Date" aria-describedby="datediscribe"
-                         required>
-                        <small id="datediscribe" class="form-text text-muted">Date</small>
-                    </div>
+                                <div>
+                                     <label for="Date">Date</label>
+                                     <input type="date" id="date" name="date" aria-describedby="datediscribe"
+                                        required>
+                                    <small id="datediscribe" class="form-text text-muted">Date</small>                        
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label for="Date">Grade</label>
+                                    <select id="grade" name="grade">
+                                        <option>12</option>
+                                    </select>
+                                    <small id="datediscribe" class="form-text text-muted">Grade</small>
+                                </div>                              
+                            </div>
                         </div>
+                      
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -106,30 +118,88 @@ $conn = null;
                                         <th>Name</th>
                                         <th>Attendance</th>
                                       </tr>
-                                      <tr>
-                                        <td>13850</td>
-                                        <td>Y.M.U.Yapa Bandara</td>
-                                        <td></td>                                       
-                                      </tr>
-                                      <tr>
-                                        <td>13850</td>
-                                        <td>S.N.Karunarathna</td>
-                                        <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>13868</td>
-                                          <td>K.B.N.S.Jayarathna</td>
-                                          <td></td>
-                                      </tr>
-                                      <tr>
-                                          <td>13880</td>
-                                          <td>D.M.U.K.Dissanayake</td>
-                                          <td></td>
+                                      <?php
+                                            foreach($result as $res){
+                                         ?>
 
+                                      <tr>
+                                      <td><?php echo $res['indexNo']; ?></td>
+                                      <td><?php echo $res['Name']; ?></td>
+                                        <td>
+                                        <button class="btn btn-success btn-circle" 
+                                          onclick="atttendent('<?php echo $res['indexNo']; ?>')"><a href="#"><i class="fas fa-check"></i></a></button>                                          
+                                        </td>                                       
+                                    </tr>                                            
+                             <?php } ?>
                   
-</thead>
-</table>
+                </thead>
+             </table>
+        </div>
+    </div>
+    <?php require('footer.php');?>
 </div>
-</div>
-</div>
-                  
+<script>
+    function atttendent(indexNo){
+            var selectedDate = $("#date").val();
+            var selectedGrade = $("#grade").val();
+            if(selectedDate==''||selectedGrade==''||indexNo=='') {
+                alert("Please fill all fields.");
+                return false;
+            }          
+            $.ajax({
+                type: "POST",
+                url: " saveAttendance.php",
+                dataType: 'json',                
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                },
+                data: {
+                    selectedDate: selectedDate,
+                    selectedGrade: selectedGrade,
+                    indexNo: indexNo
+                    },
+                        cache: false,
+                        success: function(data) {
+                        alert(data);
+                    },
+                        error: function(xhr, status, error) {
+                        console.error(xhr);
+                    }
+             }); 
+    }
+
+
+
+    
+    $(document).ready(function() {    
+        $("#submit").click(function() {        
+            var firstName = $("#firstName").val();
+            var lastName = $("#lastName").val();
+            var email = $("#email").val();
+            var message = $("#message").val();
+            
+            if(firstName==''||lastName==''||email==''||message=='') {
+                alert("Please fill all fields.");
+                return false;
+            }
+            
+            $.ajax({
+                type: "POST",
+                url: " .php",
+                data: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    message: message
+                    },
+                        cache: false,
+                        success: function(data) {
+                        alert(data);
+                    },
+                        error: function(xhr, status, error) {
+                        console.error(xhr);
+                    }
+             });        
+            });    
+    });
+</script>              
